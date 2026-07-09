@@ -5,6 +5,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 import { palette, radius, elevation, outline } from "../designSystem";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -31,7 +32,10 @@ export function Fab({ onPress, icon }: Props) {
     <View style={styles.wrap} pointerEvents="box-none">
       <AnimatedPressable
         onPress={onPress}
-        onPressIn={() => press.set(withTiming(1, { duration: 60 }))}
+        onPressIn={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          press.set(withTiming(1, { duration: 60 }));
+        }}
         onPressOut={() => press.set(withTiming(0, { duration: 130 }))}
         style={[styles.fab, animStyle]}
       >

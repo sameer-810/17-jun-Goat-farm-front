@@ -16,6 +16,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 import { palette, radius, elevation, outline } from "../designSystem";
 import { Text } from "./Text";
 
@@ -74,7 +75,10 @@ export function Button({
       <AnimatedPressable
         onPress={onPress}
         disabled={isDisabled}
-        onPressIn={() => press.set(withTiming(1, { duration: 60 }))}
+        onPressIn={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          press.set(withTiming(1, { duration: 60 }));
+        }}
         onPressOut={() => press.set(withTiming(0, { duration: 130 }))}
         style={[
           styles.base,

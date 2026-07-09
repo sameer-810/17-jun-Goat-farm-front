@@ -68,6 +68,24 @@ const INTER_BY_WEIGHT: Record<string, string> = {
   "700": "Inter_700Bold",
 };
 
+// Signature display family (Space Grotesk) for headlines — a two-font system
+// (distinctive display + clean Inter body) is the textbook "not-generic" move.
+const SPACE_BY_WEIGHT: Record<string, string> = {
+  "500": "SpaceGrotesk_500Medium",
+  "600": "SpaceGrotesk_600SemiBold",
+  "700": "SpaceGrotesk_700Bold",
+};
+
+// Headlines route to Space Grotesk; everything else stays Inter.
+const DISPLAY_VARIANTS = new Set<Variant>([
+  "display-lg",
+  "display-md",
+  "display-sm",
+  "h1",
+  "h2",
+  "h3",
+]);
+
 const toneMap: Record<Tone, string> = {
   primary: palette.text.primary,
   secondary: palette.text.secondary,
@@ -90,14 +108,17 @@ export function Text({
 }: Props) {
   const base = variantMap[variant];
   const effectiveWeight = weight ?? base.fontWeight;
-  const fontFamily = INTER_BY_WEIGHT[effectiveWeight] ?? "Inter_400Regular";
+  const display = DISPLAY_VARIANTS.has(variant);
+  const fontFamily = display
+    ? SPACE_BY_WEIGHT[effectiveWeight] ?? "SpaceGrotesk_700Bold"
+    : INTER_BY_WEIGHT[effectiveWeight] ?? "Inter_400Regular";
   return (
     <RNText
       numberOfLines={numberOfLines}
       adjustsFontSizeToFit={adjustsFontSizeToFit}
       style={[
         base,
-        // The weighted Inter file carries the weight, so clear fontWeight to
+        // The weighted font file carries the weight, so clear fontWeight to
         // avoid synthetic (faux) bolding on top of it.
         { fontFamily, fontWeight: undefined, color: toneMap[tone] },
         align ? { textAlign: align } : undefined,

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, ScrollView, StyleSheet, Pressable } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   PawPrint,
@@ -309,15 +310,19 @@ export default function DashboardScreen() {
             Your modules
           </Text>
           <View style={styles.grid}>
-            {features.map((f) => {
+            {features.map((f, i) => {
               const Icon = f.icon;
               const target =
                 isClient && f.key === "billing" ? "Bills" : LIVE_TAB[f.key];
               const live = !!target;
               return (
-                <Card
+                <Animated.View
                   key={f.key}
+                  entering={FadeInDown.duration(340).delay(i * 55)}
                   style={styles.tile}
+                >
+                <Card
+                  style={styles.tileFill}
                   elevation="raised"
                   onPress={live ? () => navigation.navigate(target) : undefined}
                 >
@@ -350,6 +355,7 @@ export default function DashboardScreen() {
                     )}
                   </View>
                 </Card>
+                </Animated.View>
               );
             })}
           </View>
@@ -431,6 +437,7 @@ const styles = StyleSheet.create({
   sectionLabel: { marginTop: 32, marginBottom: 16, marginLeft: 4 },
   grid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   tile: { width: "47.5%" },
+  tileFill: { width: "100%" },
   iconWrap: {
     width: 44,
     height: 44,
