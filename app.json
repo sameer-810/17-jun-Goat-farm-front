@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "GoatKeep",
+    "name": "Fatima Goat Farm",
     "slug": "goat-farm",
     "version": "1.0.0",
     "runtimeVersion": {
@@ -62,13 +62,13 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow GoatKeep to scan goat QR tags."
+          "cameraPermission": "Allow Fatima Goat Farm to scan goat QR tags."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow GoatKeep to upload goat and task photos."
+          "photosPermission": "Allow Fatima Goat Farm to upload goat and task photos."
         }
       ],
       [

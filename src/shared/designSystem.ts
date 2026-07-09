@@ -85,6 +85,45 @@ export const palette = {
   info: { bg: "#EAF1F3", text: "#3F5A6A", border: "#D3DEE3" },
 } as const;
 
+/**
+ * Semantic color roles (tier 2). Components should reference colors by INTENT
+ * through this layer — not raw primitives — mirroring the
+ * primitive → semantic → component token model used by Material 3, Atlassian
+ * and IBM Carbon. Re-point a role at a different primitive to retheme (e.g.
+ * dark mode) without editing any screen. See DESIGN.md.
+ */
+export const color = {
+  bg: {
+    canvas: palette.surface.secondary, // page background
+    surface: palette.surface.primary, // cards / raised
+    sunken: palette.surface.tertiary,
+    inverse: palette.ink[900], // dark hero blocks
+  },
+  text: {
+    primary: palette.text.primary,
+    secondary: palette.text.secondary,
+    muted: palette.text.tertiary,
+    onDark: palette.text.inverse,
+    accent: palette.text.accent,
+  },
+  action: {
+    primary: palette.ink[900], // primary buttons / active
+    accent: palette.amber[600], // clay CTA (AA-safe with white)
+    onAction: "#FFFFFF",
+  },
+  border: {
+    default: palette.border.default,
+    heavy: palette.ink[900], // the neo-brutalist outline
+    focus: palette.amber[600],
+  },
+  status: {
+    success: palette.success,
+    warning: palette.warning,
+    danger: palette.danger,
+    info: palette.info,
+  },
+} as const;
+
 export const spacing = {
   "0": 0,
   px: 1,

@@ -263,7 +263,7 @@ export default function InvoiceDetailScreen() {
                 onPress={() =>
                   openWhatsApp(
                     invoice.client?.phone,
-                    `Hi ${invoice.client?.name || "there"}, your GoatKeep Ad Pali bill ${invoice.invoiceNo} for ${invoice.period} is ₹${invoice.total.toLocaleString("en-IN")}, due ${fmtDate(invoice.dueDate)}. Kindly clear it at your convenience. Thank you!`,
+                    `Hi ${invoice.client?.name || "there"}, your Fatima Goat Farm Ad Pali bill ${invoice.invoiceNo} for ${invoice.period} is ₹${invoice.total.toLocaleString("en-IN")}, due ${fmtDate(invoice.dueDate)}. Kindly clear it at your convenience. Thank you!`,
                   )
                 }
               />

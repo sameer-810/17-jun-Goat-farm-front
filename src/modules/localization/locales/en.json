@@ -1,6 +1,6 @@
 {
   "onboarding": {
-    "slide1Title": "Welcome to GoatKeep",
+    "slide1Title": "Welcome to Fatima Goat Farm",
     "slide1Body": "Your whole goat farm — goats, daily work, health, and money — in one simple app.",
     "slide2Title": "Track every goat",
     "slide2Body": "QR tags, health records, weights, and vaccination reminders for your whole herd.",
@@ -11,7 +11,7 @@
     "getStarted": "Get started"
   },
   "common": {
-    "appName": "GoatKeep",
+    "appName": "Fatima Goat Farm",
     "submit": "Submit",
     "cancel": "Cancel",
     "save": "Save",
@@ -30,7 +30,7 @@
     "lastName": "Last name",
     "signIn": "Sign in",
     "createAccount": "Create an account",
-    "newHere": "New to GoatKeep?",
+    "newHere": "New to Fatima Goat Farm?",
     "forgotPassword": "Forgot password?",
     "register": "Create your account",
     "registerSubtitle": "Set up your farm account.",

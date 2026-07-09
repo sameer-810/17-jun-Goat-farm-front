@@ -321,40 +321,45 @@ export default function DashboardScreen() {
                   entering={FadeInDown.duration(340).delay(i * 55)}
                   style={styles.tile}
                 >
-                <Card
-                  style={styles.tileFill}
-                  elevation="raised"
-                  onPress={live ? () => navigation.navigate(target) : undefined}
-                >
-                  <HStack justify="space-between" align="center">
-                    <View
-                      style={[styles.iconWrap, { backgroundColor: f.tint.bg }]}
-                    >
-                      <Icon color={f.tint.fg} size={22} strokeWidth={2} />
-                    </View>
-                    {live ? (
-                      <ChevronRight
-                        size={18}
-                        color={palette.text.tertiary}
-                        strokeWidth={2}
-                      />
-                    ) : null}
-                  </HStack>
-                  <Text
-                    variant="label-lg"
-                    tone="primary"
-                    style={{ marginTop: 16 }}
+                  <Card
+                    style={styles.tileFill}
+                    elevation="raised"
+                    onPress={
+                      live ? () => navigation.navigate(target) : undefined
+                    }
                   >
-                    {f.label}
-                  </Text>
-                  <View style={{ marginTop: 8, alignSelf: "flex-start" }}>
-                    {live ? (
-                      <StatusChip label="Open" tone="success" />
-                    ) : (
-                      <StatusChip label={`Phase ${f.phase}`} tone="warning" />
-                    )}
-                  </View>
-                </Card>
+                    <HStack justify="space-between" align="center">
+                      <View
+                        style={[
+                          styles.iconWrap,
+                          { backgroundColor: f.tint.bg },
+                        ]}
+                      >
+                        <Icon color={f.tint.fg} size={22} strokeWidth={2} />
+                      </View>
+                      {live ? (
+                        <ChevronRight
+                          size={18}
+                          color={palette.text.tertiary}
+                          strokeWidth={2}
+                        />
+                      ) : null}
+                    </HStack>
+                    <Text
+                      variant="label-lg"
+                      tone="primary"
+                      style={{ marginTop: 16 }}
+                    >
+                      {f.label}
+                    </Text>
+                    <View style={{ marginTop: 8, alignSelf: "flex-start" }}>
+                      {live ? (
+                        <StatusChip label="Open" tone="success" />
+                      ) : (
+                        <StatusChip label={`Phase ${f.phase}`} tone="warning" />
+                      )}
+                    </View>
+                  </Card>
                 </Animated.View>
               );
             })}

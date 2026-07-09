@@ -110,8 +110,8 @@ export function Text({
   const effectiveWeight = weight ?? base.fontWeight;
   const display = DISPLAY_VARIANTS.has(variant);
   const fontFamily = display
-    ? SPACE_BY_WEIGHT[effectiveWeight] ?? "SpaceGrotesk_700Bold"
-    : INTER_BY_WEIGHT[effectiveWeight] ?? "Inter_400Regular";
+    ? (SPACE_BY_WEIGHT[effectiveWeight] ?? "SpaceGrotesk_700Bold")
+    : (INTER_BY_WEIGHT[effectiveWeight] ?? "Inter_400Regular");
   return (
     <RNText
       numberOfLines={numberOfLines}
