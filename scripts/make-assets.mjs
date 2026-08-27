@@ -1,60 +1,21 @@
 /**
  * Generates branded app assets (goat-head emblem on the earthy farm theme).
  * Run from goat-front: node scripts/make-assets.mjs
- * Uses `sharp` (borrowed from the sibling doctor-front if not installed here).
+ *
+ * The emblem itself lives in scripts/goatEmblem.mjs so the Play Store icon
+ * (scripts/makePlayIcon.mjs) draws the same mark from the same source.
  */
-import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import path from "path";
 import fs from "fs";
-
-const require = createRequire(import.meta.url);
-let sharp;
-try {
-  sharp = require("sharp");
-} catch {
-  // fall back to the sibling project's sharp
-  sharp = require(
-    path.resolve(process.cwd(), "../../22-04-26DR-front/node_modules/sharp"),
-  );
-}
+import sharp from "./loadSharp.mjs";
+import { goatEmblem, BRAND } from "./goatEmblem.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const assetsDir = path.resolve(__dirname, "../assets");
 fs.mkdirSync(assetsDir, { recursive: true });
 
-const FOREST = "#2F6B3C";
-const FOREST_DARK = "#1C4726";
-const INK = "#0A1E10";
-const CREAM = "#F4EEE1";
-const CLAY = "#C2683B";
-
-// Goat-head emblem, designed in a 512x512 box, centred ~ (256, 250).
-// `scale` shrinks it toward the centre; `fill`/`accent` set the colours.
-function goatEmblem({ fill = CREAM, accent = CLAY, eye = INK, scale = 1 }) {
-  const s = scale;
-  return `
-  <g transform="translate(256 256) scale(${s}) translate(-256 -256)">
-    <!-- horns -->
-    <path fill="${accent}" d="M232 150 C200 120 168 96 118 84 C150 66 198 76 232 108 C246 120 248 138 242 158 Z"/>
-    <path fill="${accent}" d="M280 150 C312 120 344 96 394 84 C362 66 314 76 280 108 C266 120 264 138 270 158 Z"/>
-    <!-- ears -->
-    <path fill="${fill}" d="M198 228 C150 214 110 226 88 258 C118 268 168 260 200 242 Z"/>
-    <path fill="${fill}" d="M314 228 C362 214 402 226 424 258 C394 268 344 260 312 242 Z"/>
-    <!-- face -->
-    <path fill="${fill}" d="M256 146 C320 146 352 194 350 256 C348 314 312 360 256 376 C200 360 164 314 162 256 C160 194 192 146 256 146 Z"/>
-    <!-- snout shading -->
-    <path fill="${accent}" opacity="0.18" d="M256 300 C284 300 300 318 300 340 C300 360 280 374 256 376 C232 374 212 360 212 340 C212 318 228 300 256 300 Z"/>
-    <!-- beard -->
-    <path fill="${fill}" d="M256 368 C246 396 250 420 256 438 C262 420 266 396 256 368 Z"/>
-    <!-- eyes -->
-    <ellipse cx="214" cy="250" rx="11" ry="16" fill="${eye}"/>
-    <ellipse cx="298" cy="250" rx="11" ry="16" fill="${eye}"/>
-    <!-- nostrils -->
-    <ellipse cx="242" cy="338" rx="5" ry="7" fill="${eye}" opacity="0.55"/>
-    <ellipse cx="270" cy="338" rx="5" ry="7" fill="${eye}" opacity="0.55"/>
-  </g>`;
-}
+const { FOREST, FOREST_DARK, CREAM, CLAY } = BRAND;
 
 function roundedBgIcon() {
   return `
