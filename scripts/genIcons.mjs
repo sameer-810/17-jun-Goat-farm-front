@@ -1,5 +1,5 @@
 /**
- * Fatima Goat Farm app icons from the client's mascot logo (../client-logo.jpeg).
+ * Rashtrafarm app icons from the client's mascot logo (../client-logo.jpeg).
  * Composites onto white with correct safe-zone padding per target.
  *   icon.png          1024  full square (white bg + mascot)
  *   adaptive-icon.png 1024  mascot scaled into the Android safe zone

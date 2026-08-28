@@ -1,5 +1,5 @@
 /**
- * The Fatima Goat Farm brand mark, as SVG.
+ * The Rashtrafarm brand mark, as SVG.
  *
  * Single source of truth for the emblem: `make-assets.mjs` builds the in-app
  * icons from it and `makePlayIcon.mjs` builds the Play Store icon from it, so

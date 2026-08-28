@@ -205,7 +205,7 @@ const stage = (s, T) => {
 const html = (s, T) => `<style>${css(T)}</style>
 <div class="glow"></div><div class="glow2"></div>
 <div class="wrap">
-  <div class="eyebrow"><i></i><span>Fatima Goat Farm</span><i></i></div>
+  <div class="eyebrow"><i></i><span>Rashtrafarm</span><i></i></div>
   <h1>${s.title}</h1>
   <p>${s.sub}</p>
   ${stage(s, T)}

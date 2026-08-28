@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Fatima Goat Farm",
+    "name": "Rashtrafarm",
     "slug": "goat-farm",
     "version": "1.0.0",
     "runtimeVersion": {
@@ -9,7 +9,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "goatfarm",
+    "scheme": "rashtrafarm",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -36,7 +36,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.goatfarm.app"
+      "package": "com.rashtrafarm.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -61,14 +61,14 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow Fatima Goat Farm to scan goat QR tags.",
+          "cameraPermission": "Allow Rashtrafarm to scan goat QR tags.",
           "recordAudioAndroidPermission": false
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow Fatima Goat Farm to upload goat and task photos."
+          "photosPermission": "Allow Rashtrafarm to upload goat and task photos."
         }
       ],
       [

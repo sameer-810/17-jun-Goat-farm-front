@@ -101,7 +101,7 @@ p{font-size:20px;line-height:1.35;color:rgba(244,238,225,.80)}
 <div class="ph back"><div class="s"><img src="${im("goatProfile")}"></div></div>
 <div class="ph front"><div class="s"><img src="${im("dashboard")}"></div></div>
 <div class="copy">
-  <div class="eyebrow"><i></i><span>Fatima Goat Farm</span></div>
+  <div class="eyebrow"><i></i><span>Rashtrafarm</span></div>
   <!-- Two lines, and each must fit the 382px between the left margin (82) and
        the play-button dead zone (464). At 56px Space Grotesk that is about ten
        characters a line — "Your whole farm," does not fit and silently wraps to

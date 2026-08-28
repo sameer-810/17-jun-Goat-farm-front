@@ -8,7 +8,14 @@ import { useScanGoat } from "@modules/goat/hooks/useGoats";
 import { palette, radius, glass } from "@shared/designSystem";
 import { Text, VStack, Button, TextField } from "@shared/ui";
 
-/** Extracts the qrToken from a scanned payload (goatfarm://goat/<token>) or raw token. */
+/**
+ * Extracts the qrToken from a scanned payload (rashtrafarm://goat/<token>) or a
+ * raw token.
+ *
+ * Deliberately matches on `goat/<token>` rather than the scheme, so tags printed
+ * under the app's old `goatfarm://` scheme keep scanning. Do not tighten this to
+ * the current scheme — the tags are on live animals' ears.
+ */
 function parseToken(data: string): string {
   const m = /goat\/([\w-]+)/.exec(data);
   return m ? m[1] : data.trim();
