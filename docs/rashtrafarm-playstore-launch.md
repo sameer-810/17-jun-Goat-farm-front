@@ -5,7 +5,8 @@ what's left. Living document — update as you go.
 
 - **App name:** Rashtrafarm
 - **Package (permanent, can never change):** `com.rashtrafarm.app`
-- **Version:** 1.0.0 (Android `versionCode` auto-increments each build)
+- **Version:** 1.0.0 (versionName) · **`versionCode: 3`** — bump this by hand in
+  `app.json` before every Play upload (§2)
 - **Status (Aug 2026):** renamed from "Fatima Goat Farm" to **Rashtrafarm**
   across the app, the backend, the policy pages and every store graphic. Assets,
   policy pages and the reviewer account are ready. Next: deploy the privacy
@@ -14,7 +15,7 @@ what's left. Living document — update as you go.
 > **Renamed before first publish.** The package ID moved from `com.goatfarm.app`
 > to `com.rashtrafarm.app` while nothing had been uploaded to Play — the only
 > moment that change is free. Two consequences: any test `.apk` already
-> sideloaded onto a phone will install *alongside* the new build rather than
+> sideloaded onto a phone will install _alongside_ the new build rather than
 > upgrading it (uninstall the old one), and the package ID is now fixed forever.
 
 ---
@@ -30,8 +31,8 @@ what's left. Living document — update as you go.
 | GitHub repo (frontend)  | `github.com/sameerrajaa9987-ui/17-jun-Goat-farm-front`             |
 | Backend (API)           | Render: `https://one7-jun-goat-farm-back-frnr.onrender.com`        |
 | Database                | MongoDB Atlas — `cluster0.q20nb4w.mongodb.net/goat-farm`           |
-| Privacy policy          | `https://rashtrafarm.vercel.app/privacy-policy.html` _(§1)_   |
-| Delete-account page     | `https://rashtrafarm.vercel.app/delete-account.html` _(§1)_   |
+| Privacy policy          | `https://rashtrafarm.vercel.app/privacy-policy.html` _(§1)_        |
+| Delete-account page     | `https://rashtrafarm.vercel.app/delete-account.html` _(§1)_        |
 | **Play reviewer login** | `demo.reviewer@goatfarm.app` / `GoatFarmDemo2026!` — owner role    |
 | Upload keystore         | Managed by EAS — run `eas credentials` to download. **BACK IT UP** |
 
@@ -125,9 +126,43 @@ Ubuntu runner, so it never touches Expo's paid build quota.
 - OTA updates: `.github/workflows/ota-update.yml` — pushes JS-only changes to
   installed apps without a new Play release.
 
+### Bump the versionCode first — every single time
+
+`eas.json` uses `"appVersionSource": "local"`, so the build takes its
+`versionCode` straight from `app.json`. Nothing increments it for you.
+
+```jsonc
+// app.json → expo.android
+"versionCode": 3   // ← +1 before every build you intend to upload to Play
+```
+
+**Google burns a version code permanently the moment a bundle is accepted —
+including bundles you later discard.** Deleting a draft release does not give
+the number back. Upload a bundle carrying a code Play has already seen and you
+get:
+
+> Version code 2 has already been used. Try another version code.
+
+The fix is always the same: bump `versionCode`, rebuild, upload the new file.
+You cannot re-upload the old one, and you cannot edit the code inside an
+existing `.aab`.
+
+Two habits that avoid it entirely:
+
+- Bump `versionCode` in the same commit as the change you are shipping, so the
+  number and the code always travel together.
+- Download each build fresh from its own GitHub Release. If your browser saves
+  it as `app-release (2).aab`, that `(2)` is a _duplicate-filename_ suffix — it
+  means you already had that file, i.e. you are about to upload a bundle you
+  have uploaded before. Delete it and download again from the newest release.
+
+`versionName` (`"version": "1.0.0"`) is the number users see and may repeat
+freely. `versionCode` is the internal counter and must strictly increase; gaps
+are fine.
+
 ### How to build
 
-1. Commit and push your changes.
+1. Bump `versionCode` in `app.json` (above), then commit and push your changes.
 2. GitHub → **Actions → "Build Android (.aab / .apk)" → Run workflow**.
 3. Choose the profile:
    - **production** → `.aab` for the Play Store
@@ -172,8 +207,8 @@ Play Console → **Grow → Store presence → Main store listing**.
 
 ### App name — max 30 characters
 
-| Option                           | Chars | Why                                                                                   |
-| -------------------------------- | ----- | ------------------------------------------------------------------------------------- |
+| Option                           | Chars | Why                                                                                    |
+| -------------------------------- | ----- | -------------------------------------------------------------------------------------- |
 | `Rashtrafarm: Goat Farm Manager` | 30    | **Recommended.** Uses the full 30 characters and keeps the words people actually type. |
 | `Rashtrafarm`                    | 11    | Matches `app.json` exactly. Cleaner, but invisible to search.                          |
 
@@ -292,7 +327,7 @@ Play Console → **Policy → App content**.
 
 | Declaration                  | Answer                                                                |
 | ---------------------------- | --------------------------------------------------------------------- |
-| **Privacy policy**           | `https://rashtrafarm.vercel.app/privacy-policy.html`             |
+| **Privacy policy**           | `https://rashtrafarm.vercel.app/privacy-policy.html`                  |
 | **App access**               | Restricted → give the reviewer login (see below)                      |
 | **Ads**                      | No ads                                                                |
 | **Content rating**           | Category "Utility, Productivity, Communication or Other" → §6         |
@@ -466,14 +501,15 @@ review.
 
 ## 10. Day-to-day cheatsheet
 
-| I want to…                      | Do this                                                                          |
-| ------------------------------- | -------------------------------------------------------------------------------- |
-| Save code to GitHub             | `git add -A` → `git commit -m "msg"` → `git push`                                |
-| Build a new `.aab` for Play     | GitHub → Actions → Build Android → Run workflow → **production**                 |
-| Build a test `.apk` for a phone | Same workflow → **preview**                                                      |
-| Ship a JS-only fix instantly    | GitHub → Actions → **ota-update** (no Play review needed)                        |
-| Ship a native change            | Build a new `.aab` → upload to the track → Send for review                       |
-| Refresh the demo/reviewer data  | backend: `node scripts/seedDemo.js --force` (dates reset to today)               |
-| Add a login without wiping data | backend: `node scripts/seedDemo.js` (accounts only)                              |
-| Re-make store graphics          | `node scripts/captureStoreScreens.mjs` → `node scripts/makeStoreScreenshots.mjs` |
-| Update the privacy pages        | edit `public/*.html` → push → Vercel redeploys automatically                     |
+| I want to…                      | Do this                                                                            |
+| ------------------------------- | ---------------------------------------------------------------------------------- |
+| Save code to GitHub             | `git add -A` → `git commit -m "msg"` → `git push`                                  |
+| Build a new `.aab` for Play     | Bump `versionCode` in `app.json` → push → Actions → Build Android → **production** |
+| Build a test `.apk` for a phone | Same workflow → **preview**                                                        |
+| Ship a JS-only fix instantly    | GitHub → Actions → **ota-update** (no Play review needed)                          |
+| Ship a native change            | Bump `versionCode` → build a new `.aab` → upload to the track → Send for review    |
+| Fix "version code already used" | Bump `versionCode` in `app.json`, rebuild, upload the **new** file                 |
+| Refresh the demo/reviewer data  | backend: `node scripts/seedDemo.js --force` (dates reset to today)                 |
+| Add a login without wiping data | backend: `node scripts/seedDemo.js` (accounts only)                                |
+| Re-make store graphics          | `node scripts/captureStoreScreens.mjs` → `node scripts/makeStoreScreenshots.mjs`   |
+| Update the privacy pages        | edit `public/*.html` → push → Vercel redeploys automatically                       |
