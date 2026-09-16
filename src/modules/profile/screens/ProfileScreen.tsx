@@ -10,6 +10,7 @@ import {
   LogOut,
   ScrollText,
   ChevronRight,
+  Trash2,
 } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
 import { useAuthStore } from "@shared/store/useAuthStore";
@@ -113,6 +114,11 @@ export default function ProfileScreen() {
               icon={<Languages size={18} color={palette.ink[700]} />}
               label={`Language: ${i18n.language === "hi" ? "हिन्दी" : "English"}`}
               onPress={toggleLang}
+            />
+            <MenuItem
+              icon={<Trash2 size={18} color={palette.danger.text} />}
+              label="Delete account"
+              onPress={() => navigation.navigate("DeleteAccount")}
             />
           </Card>
 

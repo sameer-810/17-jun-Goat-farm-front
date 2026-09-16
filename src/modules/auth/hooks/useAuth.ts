@@ -61,6 +61,16 @@ export const useResendVerification = () =>
     mutationFn: (email: string) => authApi.resendVerification(email),
   });
 
+export const useDeleteAccount = () => {
+  const logout = useAuthStore((s) => s.logout);
+  return useMutation({
+    mutationFn: (password: string) => authApi.deleteAccount(password),
+    // The server has already revoked every session; clearing local state
+    // sends the navigator back to the login screen.
+    onSuccess: () => logout(),
+  });
+};
+
 export const useLogout = () => {
   const logout = useAuthStore((s) => s.logout);
   const refreshToken = useAuthStore((s) => s.refreshToken);

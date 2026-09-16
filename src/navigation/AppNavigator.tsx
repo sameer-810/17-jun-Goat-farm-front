@@ -18,6 +18,7 @@ import { palette } from "@shared/designSystem";
 
 import DashboardScreen from "@modules/dashboard/screens/DashboardScreen";
 import ProfileScreen from "@modules/profile/screens/ProfileScreen";
+import DeleteAccountScreen from "@modules/profile/screens/DeleteAccountScreen";
 import TeamScreen from "@modules/team/screens/TeamScreen";
 import AddUserScreen from "@modules/team/screens/AddUserScreen";
 import ActivityLogScreen from "@modules/team/screens/ActivityLogScreen";
@@ -55,6 +56,7 @@ export type AppStackParamList = {
   MainTabs: undefined;
   AddUser: undefined;
   ActivityLog: undefined;
+  DeleteAccount: undefined;
   GoatProfile: { id: string };
   RegisterGoat: undefined;
   ScanGoat: undefined;
@@ -197,6 +199,7 @@ export default function AppNavigator() {
       <Stack.Screen name="MainTabs" component={MainTabs} />
       <Stack.Screen name="AddUser" component={AddUserScreen} />
       <Stack.Screen name="ActivityLog" component={ActivityLogScreen} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
       <Stack.Screen name="GoatProfile" component={GoatProfileScreen} />
       <Stack.Screen name="RegisterGoat" component={RegisterGoatScreen} />
       <Stack.Screen name="ScanGoat" component={ScanGoatScreen} />

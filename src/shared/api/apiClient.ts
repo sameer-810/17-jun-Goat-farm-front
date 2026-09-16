@@ -9,6 +9,11 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 export const apiClient = axios.create({
   baseURL: environment.apiUrl,
   headers: { "Content-Type": "application/json" },
+  // Without this axios waits forever. The API sleeps on Render's free tier and
+  // takes 30-60s to wake, so a request sent into that window would leave the
+  // screen spinning with no error and no way out. 30s covers a cold start and
+  // then fails, so the screen can show an error and offer a retry.
+  timeout: 30_000,
 });
 
 apiClient.interceptors.request.use((config) => {

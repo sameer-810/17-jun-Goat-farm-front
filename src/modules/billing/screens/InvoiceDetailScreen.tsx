@@ -12,14 +12,12 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   ChevronLeft,
   CheckCircle2,
-  IndianRupee,
   MessageCircle,
 } from "lucide-react-native";
 import { openWhatsApp } from "@shared/whatsapp";
 import { format } from "date-fns";
 import {
   useInvoice,
-  usePayInvoice,
   useRecordOffline,
   useCancelInvoice,
   useReversePayment,
@@ -58,7 +56,6 @@ export default function InvoiceDetailScreen() {
   );
 
   const { data, isLoading } = useInvoice(id);
-  const pay = usePayInvoice();
   const recordOffline = useRecordOffline();
   const cancelInvoice = useCancelInvoice();
   const reversePayment = useReversePayment();
@@ -117,24 +114,6 @@ export default function InvoiceDetailScreen() {
         },
       ],
     );
-  };
-
-  const onPay = () => {
-    pay.mutate(id, {
-      onError: (e: any) => {
-        if (e?.message === "RAZORPAY_CHECKOUT_REQUIRED") {
-          Alert.alert(
-            "Razorpay",
-            "Live Razorpay checkout opens here once keys are configured.",
-          );
-        } else {
-          Alert.alert(
-            "Payment failed",
-            e?.response?.data?.error?.message || "Try again.",
-          );
-        }
-      },
-    });
   };
 
   return (
@@ -244,15 +223,23 @@ export default function InvoiceDetailScreen() {
           )}
 
           {/* Actions */}
+          {/* Clients pay the farm directly. There is no online checkout yet:
+              the Pay button that used to sit here could only ever fail (the
+              server refuses to confirm payments without a live gateway), and
+              App Review rejects features that do nothing. When Razorpay
+              checkout is built, it goes back here. */}
           {unpaid && isClient && (
-            <Button
-              label={`Pay ₹${invoice.total.toLocaleString("en-IN")}`}
-              size="lg"
-              icon={<IndianRupee size={18} color={palette.text.inverse} />}
-              loading={pay.isPending}
-              onPress={onPay}
-              style={{ marginTop: 20 }}
-            />
+            <Card style={{ marginTop: 20 }} elevation="raised">
+              <VStack gap={4}>
+                <Text variant="label-lg" tone="primary">
+                  How to pay
+                </Text>
+                <Text variant="body-sm" tone="secondary">
+                  Pay the farm directly by cash, UPI or bank transfer. Once the
+                  farm records your payment, this bill shows as paid.
+                </Text>
+              </VStack>
+            </Card>
           )}
           {unpaid && isAdmin && (
             <VStack gap={10} style={{ marginTop: 20 }}>

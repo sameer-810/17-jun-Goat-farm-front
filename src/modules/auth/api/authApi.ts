@@ -40,6 +40,10 @@ export const authApi = {
     const res = await apiClient.post("/auth/resend-verification", { email });
     return res.data;
   },
+  deleteAccount: async (password: string): Promise<MessageResponse> => {
+    const res = await apiClient.delete("/users/me", { data: { password } });
+    return res.data;
+  },
   logout: async (refreshToken: string): Promise<MessageResponse> => {
     const res = await apiClient.post("/auth/logout", { refreshToken });
     return res.data;

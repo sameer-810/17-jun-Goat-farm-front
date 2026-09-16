@@ -16,10 +16,13 @@
       "backgroundColor": "#FFFFFF"
     },
     "ios": {
-      "supportsTablet": true,
+      "bundleIdentifier": "com.rashtrafarm.app",
+      "buildNumber": "1",
+      "supportsTablet": false,
       "infoPlist": {
-        "NSCameraUsageDescription": "Allow camera access to scan goat QR tags and capture photos.",
-        "NSPhotoLibraryUsageDescription": "Allow photo access to upload goat and task photos."
+        "NSCameraUsageDescription": "Rashtrafarm uses the camera to scan goat QR ear tags and take photos, for example to open goat #A-102's record or attach a photo to a vaccination task.",
+        "NSPhotoLibraryUsageDescription": "Rashtrafarm uses your photo library to attach existing photos to a goat's profile, a task or a farm document.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -43,7 +46,12 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-secure-store",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": false
+        }
+      ],
       "expo-localization",
       [
         "expo-font",
@@ -62,14 +70,17 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow Rashtrafarm to scan goat QR tags.",
+          "cameraPermission": "Rashtrafarm uses the camera to scan goat QR ear tags and take photos, for example to open goat #A-102's record or attach a photo to a vaccination task.",
+          "microphonePermission": false,
           "recordAudioAndroidPermission": false
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Allow Rashtrafarm to upload goat and task photos."
+          "photosPermission": "Rashtrafarm uses your photo library to attach existing photos to a goat's profile, a task or a farm document.",
+          "cameraPermission": "Rashtrafarm uses the camera to scan goat QR ear tags and take photos, for example to open goat #A-102's record or attach a photo to a vaccination task.",
+          "microphonePermission": false
         }
       ],
       [
