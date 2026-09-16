@@ -5,7 +5,7 @@ what's left. Living document — update as you go.
 
 - **App name:** Rashtrafarm
 - **Package (permanent, can never change):** `com.rashtrafarm.app`
-- **Version:** 1.0.0 (versionName) · **`versionCode: 3`** — bump this by hand in
+- **Version:** 1.0.0 (versionName) · **`versionCode: 4`** — bump this by hand in
   `app.json` before every Play upload (§2)
 - **Status (Aug 2026):** renamed from "Fatima Goat Farm" to **Rashtrafarm**
   across the app, the backend, the policy pages and every store graphic. Assets,
@@ -133,7 +133,7 @@ Ubuntu runner, so it never touches Expo's paid build quota.
 
 ```jsonc
 // app.json → expo.android
-"versionCode": 3   // ← +1 before every build you intend to upload to Play
+"versionCode": 4   // ← +1 before every build you intend to upload to Play
 ```
 
 **Google burns a version code permanently the moment a bundle is accepted —
@@ -143,9 +143,18 @@ get:
 
 > Version code 2 has already been used. Try another version code.
 
-The fix is always the same: bump `versionCode`, rebuild, upload the new file.
-You cannot re-upload the old one, and you cannot edit the code inside an
-existing `.aab`.
+**Try this first — it needs no rebuild.** The bundle is still stored in the app,
+which is exactly why its code counts as used. On the release screen, remove the
+failed upload, click **Add from library** (beside _Upload_), pick the bundle
+with that version code, and add it to the release. Play refuses to _upload_ a
+used code but will happily _attach_ a bundle it already holds.
+
+Only if it is not in the library: bump `versionCode`, rebuild, upload the new
+file. You cannot edit the code inside an existing `.aab`.
+
+**And stop discarding drafts to "start over."** Every discard of an uploaded
+bundle costs a version code. If a release draft is wrong, edit it — remove the
+bundle, fix the notes, re-add from library — instead of throwing it away.
 
 Two habits that avoid it entirely:
 
@@ -508,7 +517,7 @@ review.
 | Build a test `.apk` for a phone | Same workflow → **preview**                                                        |
 | Ship a JS-only fix instantly    | GitHub → Actions → **ota-update** (no Play review needed)                          |
 | Ship a native change            | Bump `versionCode` → build a new `.aab` → upload to the track → Send for review    |
-| Fix "version code already used" | Bump `versionCode` in `app.json`, rebuild, upload the **new** file                 |
+| Fix "version code already used" | **Add from library** instead of Upload. Not there? Bump `versionCode`, rebuild     |
 | Refresh the demo/reviewer data  | backend: `node scripts/seedDemo.js --force` (dates reset to today)                 |
 | Add a login without wiping data | backend: `node scripts/seedDemo.js` (accounts only)                                |
 | Re-make store graphics          | `node scripts/captureStoreScreens.mjs` → `node scripts/makeStoreScreenshots.mjs`   |
