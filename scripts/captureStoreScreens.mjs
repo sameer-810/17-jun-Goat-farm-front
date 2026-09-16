@@ -52,7 +52,7 @@ const PASSWORD = process.env.DEMO_PASSWORD || "Password123";
  * collapse — so the tablet capture is genuinely the tablet layout, which is
  * what Play requires (it rejects enlarged phone frames).
  */
-const TARGETS = [
+const ALL_TARGETS = [
   { key: "phone", dir: "raw-screens", w: 390, h: 844, dsf: 3, mobile: true },
   {
     key: "tablet",
@@ -62,7 +62,26 @@ const TARGETS = [
     dsf: 2,
     mobile: false,
   },
+  /**
+   * App Store "iPhone 6.5-inch Display": 428x926 @3x is exactly 1284x2778, the
+   * size App Store Connect asks for, so the capture needs no resampling. Not
+   * captured by default — pick it with --targets=ios65.
+   */
+  { key: "ios65", dir: "raw-screens-ios", w: 428, h: 926, dsf: 3, mobile: true },
 ];
+
+/** --targets=phone,tablet (default) | --targets=ios65 */
+const targetArg = process.argv.find((a) => a.startsWith("--targets="));
+const TARGET_KEYS = targetArg
+  ? targetArg.slice("--targets=".length).split(",")
+  : ["phone", "tablet"];
+const TARGETS = ALL_TARGETS.filter((t) => TARGET_KEYS.includes(t.key));
+if (TARGETS.length !== TARGET_KEYS.length) {
+  throw new Error(
+    `unknown target in ${TARGET_KEYS.join(",")}. Known: ` +
+      ALL_TARGETS.map((t) => t.key).join(", "),
+  );
+}
 
 /**
  * Navigation is by tapping, not by URL: NavigationContainer has no `linking`
