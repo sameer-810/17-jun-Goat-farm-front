@@ -1,5 +1,7 @@
 # Rashtrafarm — App Store listing
 
+Part 1 is the text to paste. Part 2 is every other field App Store Connect asks for.
+
 Everything App Store Connect asks for, ready to paste. Lengths are checked
 against Apple's limits. Written 16 Sep 2026 for version 1.0.
 
@@ -131,3 +133,127 @@ Payments: the farm's clients pay the farm directly, by cash, UPI or bank transfe
 
 The camera is used only to scan goat QR tags and to photograph goats, tasks and documents.
 ```
+
+---
+
+# Part 2 — Every field in App Store Connect
+
+Work top to bottom. Anything not listed here is left at its default.
+`<…>` marks the only values I cannot supply.
+
+## A. My Apps → + → New App
+
+| Field | Answer |
+| --- | --- |
+| Platforms | iOS only |
+| Name | Rashtrafarm: Goat Farm Manager |
+| Primary Language | English (India) |
+| Bundle ID | com.rashtrafarm.app (appears after the first build) |
+| SKU | rashtrafarm-ios |
+| User Access | Full Access |
+
+## B. App Information
+
+| Field | Answer |
+| --- | --- |
+| Subtitle | Goats, health, tasks & bills |
+| Privacy Policy URL | https://rashtrafarm.vercel.app/privacy-policy.html |
+| Category — Primary | Business |
+| Category — Secondary | Productivity |
+| Content Rights | Does not contain, show, or access third-party content |
+| Age Rating | see C |
+| License Agreement | Apple's standard EULA (do not upload a custom one) |
+| Additional Languages | none. The app is English and Hindi, but a second listing language means translating every field; add it later if you want Hindi search traffic |
+
+## C. Age Rating questionnaire
+
+Answer **None** to every category except where noted. Nothing in this app depicts any of it.
+
+| Question | Answer |
+| --- | --- |
+| Cartoon or Fantasy Violence / Realistic Violence / Prolonged Violence | None |
+| Sexual Content or Nudity | None |
+| Profanity or Crude Humor | None |
+| Alcohol, Tobacco, or Drug Use or References | None |
+| Mature or Suggestive Themes | None |
+| Horror or Fear Themes | None |
+| Medical or Treatment Information | **None** — the health records are veterinary, about goats |
+| Gambling | None |
+| Contests | None |
+| Unrestricted Web Access | No |
+| Made for Kids | No |
+| In-app controls for parental settings | Not applicable |
+
+## D. Pricing and Availability
+
+| Field | Answer |
+| --- | --- |
+| Price | Free (₹0) |
+| Availability | **India only.** Bills are in ₹ and you have not prepared EU obligations |
+| Pre-Orders | Off |
+| Distribution on alternative marketplaces (EU) | Off |
+| Custom Product Pages | None |
+| Available on Apple Vision Pro | Off — never tested there |
+| Educational discount | Not applicable to a free app |
+
+## E. App Privacy
+
+**Data collection:** Yes.
+For every type below: **Linked to the user = Yes**, **Used for tracking = No**, purpose **App Functionality** (add *Account Management* where the field says so). Nothing is used for advertising or analytics — the app contains no ad, analytics or crash SDK.
+
+| Category → Type | Purpose | Why it is collected |
+| --- | --- | --- |
+| Contact Info → Name | App Functionality, Account Management | Sign-up and staff/client profiles |
+| Contact Info → Email Address | App Functionality, Account Management | The login |
+| Contact Info → Phone Number | App Functionality | Staff and client contact, WhatsApp reminders |
+| Identifiers → User ID | App Functionality, Account Management | The account itself |
+| Purchases → Purchase History | App Functionality | Client bills and recorded payments |
+| User Content → Photos or Videos | App Functionality | Goat photos, task proof, document scans |
+| User Content → Other User Content | App Functionality | Goat, health, task, staff and finance records |
+
+**Tracking:** answer **No** to "Do you or your third-party partners use data for tracking?"
+**Privacy Choices URL:** leave empty.
+
+## F. Version 1.0 page
+
+| Field | Answer |
+| --- | --- |
+| Screenshots — iPhone 6.5-inch | the 8 files in `store-assets/app-store/iphone-6.5/`, in filename order |
+| Screenshots — iPad | none; the app is iPhone-only |
+| App Preview (video) | none |
+| Promotional Text | see Part 1 |
+| Description | see Part 1 |
+| Keywords | see Part 1 |
+| Support URL | https://rashtrafarm.vercel.app/privacy-policy.html |
+| Marketing URL | leave empty |
+| Version | 1.0 |
+| Copyright | 2026 FiveM Infotech Private Limited |
+| Build | pick the TestFlight build once it finishes processing |
+| Version Release | **Manually release this version** |
+| Phased Release for Automatic Updates | leave on; it only affects later updates |
+| Routing App Coverage File | none |
+| Game Center | off |
+| In-App Purchases | none |
+
+### App Review Information
+
+| Field | Answer |
+| --- | --- |
+| Sign-in required | **Yes** |
+| User name | the Owner demo email from the Play guide's App access block |
+| Password | that account's password — type it here only, never in git |
+| Contact First Name / Last Name | `<your first name>` / `<your last name>` |
+| Contact Phone Number | `<your mobile, with +91>` |
+| Contact Email | 5fivempvt@gmail.com |
+| Attachment | none |
+| Notes | the block in Part 1, plus the other role logins |
+
+## G. Account-level, once per Apple account
+
+| Item | Answer |
+| --- | --- |
+| Free Apps Agreement | must be Active under Business → Agreements, or the app cannot be released |
+| Paid Apps Agreement | not needed |
+| EU Digital Services Act trader status | already submitted for this account with AshShifa |
+| Export compliance | answered by `ITSAppUsesNonExemptEncryption: false` in `app.json`; if a question still appears, answer *None of the algorithms mentioned above* |
+| Advertising Identifier (IDFA) | **No** — the app has no ad SDK |
