@@ -32,6 +32,7 @@ import {
   StatusChip,
   StatTile,
   DonutChart,
+  ErrorState,
 } from "@shared/ui";
 
 type Feature = {
@@ -150,7 +151,7 @@ export default function DashboardScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const user = useAuthStore((s) => s.user);
-  const { data: stats } = useGoatStats();
+  const { data: stats, isError: statsError, refetch: refetchStats, isRefetching: statsRetrying } = useGoatStats();
   const isClient = user?.role === "client";
   const { data: taskStats } = useTaskStats(!isClient);
   const { data: unread } = useUnreadCount();
@@ -205,6 +206,16 @@ export default function DashboardScreen() {
               </View>
             </HStack>
           </HStack>
+
+          {statsError && (
+            <View style={{ marginTop: 20 }}>
+              <ErrorState
+                message="Could not load your farm's numbers. Check your connection and try again."
+                onRetry={() => refetchStats()}
+                retrying={statsRetrying}
+              />
+            </View>
+          )}
 
           {/* Headline metric — calm, type-led */}
           <View style={styles.headline}>
